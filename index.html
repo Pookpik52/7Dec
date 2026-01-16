@@ -3,52 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7Dec In My Way We Swag| ติดต่อทำเพลง</title>
+  <title>7DEC IN MY WAY WE SWAG | Music Production</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-family: 'Inter', sans-serif;
       background: #f4f6f8;
       color: #1f2937;
     }
 
     /* Top contact bar */
-    .top-bar {
-      background: #111827;
-      color: #e5e7eb;
-      padding: 10px 40px;
+   .top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(17,24,39,0.9);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.top-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background: #ffffff;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 0.9rem;
-    }
-    .top-bar span {
-      opacity: 0.9;
+      justify-content: center;
+      text-align: center;
+      padding: 0 30px;
     }
 
-    /* Header */
-    header {
-      background: #ffffff;
-      padding: 60px 40px 40px;
-      text-align: center;
-      border-bottom: 1px solid #e5e7eb;
-    }
-    header h1 {
-      margin: 0 0 12px;
-      font-size: 2.2rem;
-    }
-    header p {
-      max-width: 700px;
-      margin: 0 auto;
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.8rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 40px;
       color: #4b5563;
       font-size: 1.05rem;
-      line-height: 1.7;
+      line-height: 1.8;
+    }
+
+    .scroll-btn {
+      display: inline-block;
+      padding: 14px 30px;
+      border-radius: 999px;
+      background: #111827;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    .scroll-btn:hover {
+      background: #1f2937;
+      transform: translateY(2px);
     }
 
     /* Main content */
     .content {
       max-width: 1000px;
-      margin: 60px auto;
+      margin: 120px auto 60px;
       padding: 0 30px;
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -58,7 +100,7 @@
     section {
       background: #ffffff;
       padding: 30px;
-      border-radius: 14px;
+      border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
@@ -66,6 +108,7 @@
       margin-top: 0;
       margin-bottom: 16px;
       font-size: 1.4rem;
+      font-family: 'Playfair Display', serif;
     }
 
     section p, li {
@@ -78,7 +121,6 @@
       padding-left: 18px;
     }
 
-    /* Contact form */
     label {
       display: block;
       margin: 14px 0 6px;
@@ -125,54 +167,56 @@
     @media (max-width: 900px) {
       .content {
         grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top contact info -->
-  <div class="top-bar">
+  <!-- Top bar -->
+<div class="top-bar">
+  <div class="top-bar-inner">
     <span>Email: esus@email.com</span>
-    <span>Instagram / Discord: ehere</span>
+    <span>Instagram: 7decboy</span>
   </div>
+</div>
 
-  <!-- Header -->
-  <header>
-    <h1>7Dec in my way we swag</h1>
-    <p>
-      รับผลิตเพลงและดนตรีประกอบสำหรับครีเอเตอร์ แบรนด์ และโปรเจกต์ต่าง ๆ
-      <br />เน้นคุณภาพ ความชัดเจนของงาน และการสื่อสารที่เป็นมืออาชีพ
-    </p>
-  </header>
 
-  <!-- Main content -->
-  <main class="content">
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1>7DEC IN MY WAY WE SWAG</h1>
+      <p>
+        Music production & sound design for creators, brands and digital projects.<br>
+        กรุณาอ่านรายละเอียดก่อนติดต่อเพื่อความเข้าใจที่ตรงกัน
+      </p>
+      <a href="#contact" class="scroll-btn">CLICK TO CONTACT</a>
+    </div>
+  </section>
 
-    <!-- Details -->
+  <!-- MAIN -->
+  <main class="content" id="contact">
+
     <section>
       <h2>รายละเอียดการให้บริการ</h2>
-      <p>
-        คุณสามารถเข้ามาดูรายละเอียดก่อนตัดสินใจติดต่อได้ โดยพวกเรารับงานในรูปแบบดังนี้:
-      </p>
+      <p>คุณสามารถเข้ามาดูรายละเอียดก่อนตัดสินใจติดต่อได้ โดยพวกเรารับงานในรูปแบบดังนี้:</p>
       <ul>
         <li>เพลง Background Music</li>
-        <li> feat. เพลง</li>
+        <li>งาน feat. เพลง</li>
         <li>ดนตรีประกอบเกม วิดีโอ หรือเว็บไซต์</li>
         <li>งาน Custom ตามบรีฟและอารมณ์ที่ต้องการ</li>
       </ul>
-      <p>
-        ระยะเวลาการทำงานและราคา จะประเมินตามรายละเอียดของแต่ละโปรเจกต์
-      </p>
+      <p>ระยะเวลาการทำงานและราคาจะประเมินตามรายละเอียดของแต่ละโปรเจกต์</p>
     </section>
 
-    <!-- Contact -->
     <section>
       <h2>ติดต่อสอบถาม / ขอใบเสนอราคา</h2>
-      <p>
-        เมื่อคุณมีรายละเอียดคร่าว ๆ แล้ว สามารถส่งข้อมูลผ่านฟอร์มด้านล่าง
-        เพื่อพูดคุยและประเมินงานได้
-      </p>
+      <p>เมื่อคุณมีรายละเอียดคร่าว ๆ แล้ว สามารถส่งข้อมูลผ่านฟอร์มด้านล่าง</p>
 
       <form>
         <label>ชื่อ</label>

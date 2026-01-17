@@ -275,14 +275,26 @@
 
   <button id="musicToggle" aria-label="Toggle background music">♫</button>
 
-  <script>
+<script>
   const music = document.getElementById('bgMusic');
   const toggle = document.getElementById('musicToggle');
   let isPlaying = false;
 
+  // unlock audio on first user interaction (mobile fix)
+  const unlockAudio = () => {
+    music.volume = 0.35;
+    music.play().then(() => {
+      music.pause();
+    }).catch(() => {});
+    document.removeEventListener('touchstart', unlockAudio);
+    document.removeEventListener('click', unlockAudio);
+  };
+
+  document.addEventListener('touchstart', unlockAudio, { once: true });
+  document.addEventListener('click', unlockAudio, { once: true });
+
   toggle.addEventListener('click', () => {
     if (!isPlaying) {
-      music.volume = 0.1; // เบา ๆ แบบ background
       music.play();
       toggle.textContent = '❚❚';
     } else {
@@ -292,5 +304,7 @@
     isPlaying = !isPlaying;
   });
 </script>
+
 </body>
 </html>
+

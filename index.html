@@ -197,6 +197,122 @@
   transform: scale(1.08);
 }
 
+.ticket-section {
+  padding: 160px 20px;
+  background: #0f172a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* กล่องกลาง */
+.ticket-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 50px 40px;
+  border-radius: 20px;
+  text-align: center;
+  background: #273759;
+  color: #f8fafc;
+  overflow: hidden;
+}
+
+/* ไฟวิ่งรอบกรอบ */
+.ticket-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255,255,255,0.8) 90deg,
+    transparent 180deg
+  );
+  animation: rotateLight 4s linear infinite;
+  z-index: 0;
+}
+
+/* ทำให้พื้นหลังทับด้านใน */
+.ticket-card::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #071022;
+  border-radius: 18px;
+  z-index: 1;
+}
+
+/* ให้เนื้อหาลอยเหนือเอฟเฟกต์ */
+.ticket-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animation หมุนไฟ */
+@keyframes rotateLight {
+  100% {
+    transform: rotate(350deg);
+  }
+}
+
+/* ตัวหนังสือ */
+.ticket-card h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 25px;
+  color: aquamarine;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 30px;
+  color: #fffdf5;
+}
+
+.ticket-card button {
+  padding: 14px 38px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  color: #111827;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ticket-card button:hover {
+  transform: scale(1.05);
+}
+
+.buy-btn {
+  display: inline-block;
+  padding: 14px 38px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  transform: scale(1.05);
+}
+
+
+
   </style>
 </head>
 <body>
@@ -219,11 +335,16 @@
         กรุณาอ่านรายละเอียดก่อนติดต่อเพื่อความเข้าใจที่ตรงกัน
       </p>
       <a href="#contact" class="scroll-btn">CLICK TO CONTACT</a>
+      <a href="#tickets" class="scroll-btn" style="margin-left:10px;background:#b91c1c;">
+  BUY CONCERT TICKET
+      </a>
+
     </div>
   </section>
 
   <!-- MAIN -->
   <main class="content" id="contact">
+    
 
     <section>
       <h2>รายละเอียดการให้บริการ</h2>
@@ -264,6 +385,19 @@
     </section>
 
   </main>
+<!-- TICKET SECTION -->
+<section id="tickets" class="ticket-section">
+  <div class="ticket-card">
+    <h2>7DEC LIVE SESSION 2026</h2>
+    <p class="subtitle">Official Concert Ticket</p>
+    <p class="price">300 THB</p>
+    <a href="payment.html">
+  <button>BUY TICKET</button>
+  </a>
+
+  </div>
+</section>
+
 
   <footer>
     © 2026 7DEC IN MY WAY WE SWAG. All rights reserved.
@@ -307,4 +441,3 @@
 
 </body>
 </html>
-

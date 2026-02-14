@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>7DEC Admin</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 40px;
+      background: #111;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #333;
+      text-align: left;
+    }
+
+    th {
+      background: #222;
+    }
+  </style>
+</head>
+<body>
+
+<h1>7DEC Admin Dashboard</h1>
+
+<table id="paymentsTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+async function loadPayments() {
+  const res = await fetch('/api/admin');
+  const data = await res.json();
+
+  const tbody = document.querySelector('#paymentsTable tbody');
+  tbody.innerHTML = '';
+
+  data.forEach(payment => {
+    const row = `
+      <tr>
+        <td>${payment.id}</td>
+        <td>${payment.name}</td>
+        <td>${payment.email}</td>
+        <td>${new Date(payment.created_at).toLocaleString()}</td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+}
+
+loadPayments();
+</script>
+
+</body>
+</html>

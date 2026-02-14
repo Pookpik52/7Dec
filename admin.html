@@ -51,20 +51,41 @@ async function loadPayments() {
   const tbody = document.querySelector('#paymentsTable tbody');
   tbody.innerHTML = '';
 
-  data.forEach(payment => {
-    const row = `
-      <tr>
-        <td>${payment.id}</td>
-        <td>${payment.name}</td>
-        <td>${payment.email}</td>
-        <td>${new Date(payment.created_at).toLocaleString()}</td>
-      </tr>
-    `;
-    tbody.innerHTML += row;
-  });
+ data.forEach(payment => {
+  const row = `
+    <tr>
+      <td>${payment.id}</td>
+      <td>${payment.name}</td>
+      <td>${payment.email}</td>
+      <td>${new Date(payment.created_at).toLocaleString()}</td>
+      <td>${payment.status || 'pending'}</td>
+      <td>
+        ${
+          payment.status !== 'approved'
+            ? `<button onclick="approve(${payment.id})">Approve</button>`
+            : 'Approved'
+        }
+      </td>
+    </tr>
+  `;
+  tbody.innerHTML += row;
+});
+
 }
 
 loadPayments();
+async function approve(id) {
+  await fetch('/api/approve', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id })
+  });
+
+  loadPayments();
+}
+
 </script>
 
 </body>

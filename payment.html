@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7DEC | Payment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* LOGO TOP CENTER */
+.logo img {
+  width: 200px;
+  height: auto;
+}
+
+.logo {
+  margin-top: 5%;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+}
+
+/* CENTER BOX */
+.payment-box {
+  margin-top: 60px;
+  background: #111827;
+  padding: 50px 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.qr {
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 30px;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr img {
+  width: 90%;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  color: #111827;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">
+  <img src="SevenDec.png" alt="7DEC Logo">
+</div>
+
+<div class="payment-box">
+
+  <h2>Scan QR to Pay</h2>
+
+  <div class="qr">
+    <!-- ใส่ไฟล์ QR ของคุณตรงนี้ -->
+    <img src="Qrcode.png" alt="QR Code">
+  </div>
+      <form id="paymentForm">
+  <input type="text" id="name" placeholder="ชื่อผู้โอน" required>
+  <input type="email" id="email" placeholder="อีเมล" required>
+
+  <label style="font-size:0.9rem;opacity:0.8;margin-bottom:8px;display:block;">
+    อัปโหลดสลิปการโอน
+  </label>
+  <input type="file" id="slip" accept="image/*" required>
+
+  <button type="submit">แจ้งชำระเงิน</button>
+</form>
+
+
+</div>
+<script>
+document.getElementById("paymentForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  await fetch("/api/payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value
+    })
+  });
+
+  alert("ส่งข้อมูลเรียบร้อย");
+});
+</script>
+
+
+</body>
+</html>

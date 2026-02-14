@@ -3,23 +3,31 @@ import { neon } from '@neondatabase/serverless';
 const sql = neon(process.env.DATABASE_URL);
 
 export default async function handler(req, res) {
-  const { id } = req.body;
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
 
   try {
-    // 🔥 นับจำนวนที่ approved แล้ว
-    const count = await sql`
+    const { id } = req.body || {};
+
+    if (!id) {
+      return res.status(400).json({ message: "Missing ID" });
+    }
+
+    const countResult = await sql`
       SELECT COUNT(*) FROM payments WHERE status = 'approved';
     `;
 
-    if (parseInt(count[0].count) >= 80) {
+    const approvedCount = parseInt(countResult[0].count);
+
+    if (approvedCount >= 80) {
       return res.status(400).json({ message: "Tickets sold out" });
     }
 
-    // 🔥 สร้าง ticket code
-    const ticketNumber = parseInt(count[0].count) + 1;
+    const ticketNumber = approvedCount + 1;
     const ticketCode = `7DEC-${ticketNumber.toString().padStart(4, '0')}`;
 
-    // 🔥 update status + ticket_code
     await sql`
       UPDATE payments
       SET status = 'approved',
@@ -30,6 +38,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ message: "Approved" });
 
   } catch (error) {
+    console.error("Approve Error:", error);
     return res.status(500).json({ error: error.message });
   }
 }

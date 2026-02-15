@@ -67,8 +67,6 @@ async function loadPayments() {
 }
 
 loadPayments();
-<div id="payments"></div>
-
 async function approve(id) {
   await fetch('/api/approve', {
     method: 'POST',

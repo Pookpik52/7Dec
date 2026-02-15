@@ -1,44 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin</title>
+  <meta charset="UTF-8">
+  <title>7DEC Admin Dashboard</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #333;
+      text-align: left;
+    }
+
+    th {
+      background: #111;
+    }
+
+    button {
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .approve {
+      background: #00c853;
+      color: white;
+    }
+
+    .approved {
+      color: #00e676;
+      font-weight: bold;
+    }
+
+    .pending {
+      color: orange;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-  <h2>Admin Dashboard</h2>
+  <h1>7DEC Admin Dashboard</h1>
 
-  <!-- 👇 ใส่ตรงนี้เลย -->
-  <div id="payments"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Ticket</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="payments">
+      <!-- Data จะมาแสดงตรงนี้ -->
+    </tbody>
+  </table>
 
   <script>
     async function loadPayments() {
-      const res = await fetch('/api/admin');
-      const data = await res.json();
+      try {
+        const res = await fetch('/api/admin');
+        const data = await res.json();
 
-      const container = document.getElementById("payments");
-      container.innerHTML = "";
+        const paymentContainer = document.getElementById("payments");
+        paymentContainer.innerHTML = "";
 
-      data.payments.forEach(payment => {
-        container.innerHTML += `
-          <div>
-            <p>${payment.name}</p>
-            <p>${payment.email}</p>
-            <p>${payment.status}</p>
-            <button onclick="approve(${payment.id})">Approve</button>
-            <hr>
-          </div>
-        `;
-      });
+        if (!data.payments || data.payments.length === 0) {
+          paymentContainer.innerHTML = `
+            <tr>
+              <td colspan="7">No payments found</td>
+            </tr>
+          `;
+          return;
+        }
+
+        data.payments.forEach(payment => {
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td>${payment.id}</td>
+            <td>${payment.name}</td>
+            <td>${payment.email}</td>
+            <td>${new Date(payment.created_at).toLocaleString()}</td>
+            <td class="${payment.status === 'approved' ? 'approved' : 'pending'}">
+              ${payment.status}
+            </td>
+            <td>${payment.ticket || '-'}</td>
+            <td>
+              ${payment.status !== 'approved' 
+                ? `<button class="approve" onclick="approve(${payment.id})">Approve</button>` 
+                : '-'}
+            </td>
+          `;
+
+          paymentContainer.appendChild(row);
+        });
+
+      } catch (error) {
+        console.error("Error loading payments:", error);
+      }
     }
 
     async function approve(id) {
-      await fetch('/api/approve', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id })
-      });
+      try {
+        await fetch('/api/approve', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id })
+        });
 
-      loadPayments();
+        loadPayments();
+
+      } catch (error) {
+        console.error("Error approving payment:", error);
+      }
     }
 
     loadPayments();

@@ -55,26 +55,22 @@ async function loadPayments() {
   const tbody = document.querySelector('#paymentsTable tbody');
   tbody.innerHTML = '';
 
- data.forEach(payment => {
-  const row = `
-    <tr>
-      <td>${payment.id}</td>
-      <td>${payment.name}</td>
-      <td>${payment.email}</td>
-      <td>${new Date(payment.created_at).toLocaleString()}</td>
-      <td>${payment.status || 'pending'}</td>
-      <td>${payment.ticket_code || '-'}</td>
-      <td>
-        ${
-          payment.status !== 'approved'
-            ? `<button onclick="approve(${payment.id})">Approve</button>`
-            : 'Approved'
-        }
-      </td>
-    </tr>
+data.payments.forEach(payment => {
+  paymentContainer.innerHTML += `
+    <div class="card">
+      <p><b>Name:</b> ${payment.name}</p>
+      <p><b>Email:</b> ${payment.email}</p>
+
+      <p><b>Slip:</b></p>
+      <img src="${payment.slip_url}" width="200" style="border-radius:8px;" />
+
+      <br>
+      <button onclick="approve(${payment.id})">Approve</button>
+      <hr>
+    </div>
   `;
-  tbody.innerHTML += row;
 });
+
 
 }
 

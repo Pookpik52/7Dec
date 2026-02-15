@@ -16,10 +16,11 @@ try {
     return res.status(400).json({ message: "Tickets sold out" });
   }
 
-  await sql`
-    INSERT INTO payments (name, email)
-    VALUES (${name}, ${email});
-  `;
+await sql`
+  INSERT INTO payments (name, email, status)
+  VALUES (${name}, ${email}, 'pending');
+`;
+
 
   return res.status(200).json({ message: "Saved successfully" });
 

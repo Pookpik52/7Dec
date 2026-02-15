@@ -362,26 +362,29 @@
       <h2>ติดต่อสอบถาม / ขอใบเสนอราคา</h2>
       <p>เมื่อคุณมีรายละเอียดคร่าว ๆ แล้ว สามารถส่งข้อมูลผ่านฟอร์มด้านล่าง</p>
 
-      <form>
-        <label>ชื่อ</label>
-        <input type="text" placeholder="Your name" />
+<form id="musicForm">
 
-        <label>อีเมล / ช่องทางติดต่อ</label>
-        <input type="text" placeholder="Email หรือ Social" />
+  <label>ชื่อ</label>
+  <input type="text" name="name" placeholder="Your name" required />
 
-        <label>ประเภทงาน</label>
-        <select>
-          <option>เพลง Background Music</option>
-          <option>งาน feat.</option>
-          <option>ดนตรีประกอบเกม วิดีโอ หรือเว็บไซต์</option>
-          <option>Custom Project</option>
-        </select>
+  <label>อีเมล / ช่องทางติดต่อ</label>
+  <input type="text" name="email" placeholder="Email หรือ Social" required />
 
-        <label>รายละเอียดโปรเจกต์</label>
-        <textarea placeholder="แนวเพลง อารมณ์ ความยาว งบประมาณคร่าว ๆ"></textarea>
+  <label>ประเภทงาน</label>
+  <select name="style">
+    <option>เพลง Background Music</option>
+    <option>งาน feat.</option>
+    <option>ดนตรีประกอบเกม วิดีโอ หรือเว็บไซต์</option>
+    <option>Custom Project</option>
+  </select>
 
-        <button type="submit">ส่งข้อมูลติดต่อ</button>
-      </form>
+  <label>รายละเอียดโปรเจกต์</label>
+  <textarea name="message" placeholder="แนวเพลง อารมณ์ ความยาว งบประมาณคร่าว ๆ"></textarea>
+
+  <button type="submit">ส่งข้อมูลติดต่อ</button>
+
+</form>
+
     </section>
 
   </main>
@@ -439,7 +442,7 @@
   });
 </script>
 <script>
-  
+
 document.getElementById("musicForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 

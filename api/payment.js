@@ -15,9 +15,9 @@ export default async function handler(req, res) {
       VALUES (${name}, ${email}, 'pending');
     `;
 
-    return res.status(200).json({ message: 'Saved successfully' });
+    res.status(200).json({ message: 'Saved successfully' });
 
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 }

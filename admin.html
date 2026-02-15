@@ -1,85 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>7DEC Admin</title>
-  <style>
-    body {
-      font-family: Arial;
-      padding: 40px;
-      background: #111;
-      color: white;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #333;
-      text-align: left;
-    }
-
-    th {
-      background: #222;
-    }
-  </style>
+  <title>Admin</title>
 </head>
 <body>
 
-<h1>7DEC Admin Dashboard</h1>
+  <h2>Admin Dashboard</h2>
 
-<table id="paymentsTable">
-  <thead>
-   <tr>
-  <th>ID</th>
-  <th>Name</th>
-  <th>Email</th>
-  <th>Date</th>
-  <th>Status</th>
-  <th>Ticket</th>
-  <th>Action</th>
-</tr>
+  <!-- 👇 ใส่ตรงนี้เลย -->
+  <div id="payments"></div>
 
-  </thead>
-  <tbody></tbody>
-</table>
+  <script>
+    async function loadPayments() {
+      const res = await fetch('/api/admin');
+      const data = await res.json();
 
-<script>
-async function loadPayments() {
-  const res = await fetch('/api/admin');
-  const data = await res.json();
+      const container = document.getElementById("payments");
+      container.innerHTML = "";
 
-  const container = document.getElementById("payments");
-  container.innerHTML = "";
+      data.payments.forEach(payment => {
+        container.innerHTML += `
+          <div>
+            <p>${payment.name}</p>
+            <p>${payment.email}</p>
+            <p>${payment.status}</p>
+            <button onclick="approve(${payment.id})">Approve</button>
+            <hr>
+          </div>
+        `;
+      });
+    }
 
-  data.payments.forEach(payment => {
-    container.innerHTML += `
-      <div>
-        <p>${payment.name}</p>
-        <p>${payment.email}</p>
-        <button onclick="approve(${payment.id})">Approve</button>
-      </div>
-    `;
-  });
-}
+    async function approve(id) {
+      await fetch('/api/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
 
-loadPayments();
-async function approve(id) {
-  await fetch('/api/approve', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id })
-  });
+      loadPayments();
+    }
 
-  loadPayments();
-}
-
-</script>
+    loadPayments();
+  </script>
 
 </body>
 </html>

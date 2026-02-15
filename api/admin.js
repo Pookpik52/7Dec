@@ -5,22 +5,12 @@ const sql = neon(process.env.DATABASE_URL);
 export default async function handler(req, res) {
   try {
     const payments = await sql`
-      SELECT * FROM payments 
-      ORDER BY created_at DESC
+      SELECT * FROM payments ORDER BY id DESC
     `;
 
-    const musicRequests = await sql`
-      SELECT * FROM music_requests 
-      ORDER BY created_at DESC
-    `;
-
-    return res.status(200).json({
-      payments,
-      musicRequests
-    });
+    res.status(200).json({ payments });
 
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 }

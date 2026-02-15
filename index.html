@@ -438,6 +438,28 @@
     isPlaying = !isPlaying;
   });
 </script>
+<script>
+  
+document.getElementById("musicForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData);
+
+  const res = await fetch("/api/music-request", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    alert("ส่งคำขอเรียบร้อยแล้ว 🎵");
+    this.reset();
+  } else {
+    alert("เกิดข้อผิดพลาด");
+  }
+});
+</script>
 
 </body>
 </html>
